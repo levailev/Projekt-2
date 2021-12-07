@@ -36,23 +36,11 @@ class MainActivity : AppCompatActivity() {
     inner class weatherTask() : AsyncTask<String, Void, String>() {
         override fun onPreExecute() {
             super.onPreExecute()
-            /* Showing the ProgressBar, Making the main design GONE */
             findViewById<ProgressBar>(R.id.loader).visibility = View.VISIBLE
             findViewById<RelativeLayout>(R.id.mainContainer).visibility = View.GONE
             findViewById<TextView>(R.id.errorText).visibility = View.GONE
         }
-
-        override fun doInBackground(vararg params: String?): String? {
-            var response:String?
-            try{
-                response = URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API").readText(
-                    Charsets.UTF_8
-                )
-            }catch (e: Exception){
-                response = null
-            }
-            return response
-        }
+        
 
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
@@ -88,6 +76,7 @@ class MainActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 findViewById<ProgressBar>(R.id.loader).visibility = View.GONE
                 findViewById<TextView>(R.id.errorText).visibility = View.VISIBLE
+
                 sleep(2000)
                 CITY = "Debrecen"
                 weatherTask().execute()
