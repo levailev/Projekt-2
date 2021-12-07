@@ -2,16 +2,15 @@ package com.example.weather
 
 import android.os.AsyncTask
 import android.os.Bundle
-import android.widget.Button
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
+import java.lang.Thread.sleep
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
-import android.widget.EditText
-import java.lang.Thread.sleep
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        weatherTask().execute()
         val b = findViewById<Button>(R.id.button) as Button
         b.setOnClickListener {
             var et = findViewById<View>(R.id.editCity) as EditText
@@ -87,7 +86,6 @@ class MainActivity : AppCompatActivity() {
                 findViewById<ProgressBar>(R.id.loader).visibility = View.GONE
                 findViewById<TextView>(R.id.errorText).visibility = View.VISIBLE
 
-                sleep(2000)
                 CITY = "Debrecen"
                 weatherTask().execute()
             }
